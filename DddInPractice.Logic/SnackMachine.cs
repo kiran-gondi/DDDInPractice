@@ -4,17 +4,17 @@ using static DddInPractice.Logic.Money;
 namespace DddInPractice.Logic
 {
   //DDD: Entity
-  public sealed class SnackMachine : Entity
+  public class SnackMachine : Entity
   {
-    public Money MoneyInside { get; private set; }
-    public Money MoneyInTransaction { get; private set; }
+    public virtual Money MoneyInside { get; protected set; }
+    public virtual Money MoneyInTransaction { get; protected set; }
 
     //public SnackMachine()
     //{
     //  MoneyInside = None;
     //  MoneyInTransaction = None;
     //}
-    public void InsertMoney(Money money)
+    public virtual void InsertMoney(Money money)
     {
       Money[] coinsAndNotes = { Cent, TenCent, Quarter, Dollar, FiveDollar, TwentyDollar };
       if (!coinsAndNotes.Contains(money))
@@ -23,12 +23,12 @@ namespace DddInPractice.Logic
       MoneyInTransaction += money;
     }
 
-    public void ReturnMoney()
+    public virtual void ReturnMoney()
     {
       MoneyInTransaction = None;
     }
 
-    public void BuySnack()
+    public virtual void BuySnack()
     {
       MoneyInside += MoneyInTransaction;
       MoneyInTransaction = None;

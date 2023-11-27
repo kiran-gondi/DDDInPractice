@@ -33,7 +33,11 @@ namespace DddInPractice.Logic
       }
     }
 
-    public Money(int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
+    private Money()
+    {
+
+    }
+    public Money(int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount) : this()
     {
       if (oneCentCount < 0)
         throw new InvalidOperationException();
@@ -104,5 +108,14 @@ namespace DddInPractice.Logic
 
       }
     }
+
+    public override string ToString()
+    {
+      if (Amount < 1)
+        return "cent" + (Amount * 100).ToString("0");
+
+      return "$" + Amount.ToString("0.00");
+    }
+
   }
 }
