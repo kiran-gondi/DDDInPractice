@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 using DddInPractice.Logic;
 
 using FluentAssertions;
@@ -57,5 +57,21 @@ namespace DddInPractice.Tests
             snackMachine.MoneyInTransaction.Should().Be(None);
             snackMachine.MoneyInside.Amount.Should().Be(2m);
         }
-    }
+
+        [Fact]
+        public void BuySnack_trades_inserted_money_for_a_snack()
+        {
+          var snackMachine = new SnackMachine();
+          snackMachine.LoadSnacks(1, new Snack("some snack"), 10, 1m);
+          snackMachine.InsertMoney(Dollar);
+
+          snackMachine.BuySnack(1);
+
+          snackMachine.MoneyInTransaction.Should().Be(0m);
+          snackMachine.MoneyInside.Amount.Should().Be(1m);
+          snackMachine.Slots.Single(x => x.Position == 1).Quantity.Should().Be(9);
+          //snackMachine.GetSnackPile(1).Quantity.Should().Be(9);
+        }
+
+  }
 }
