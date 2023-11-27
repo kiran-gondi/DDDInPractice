@@ -4,6 +4,7 @@ using static DddInPractice.Logic.Money;
 namespace DddInPractice.Logic
 {
   //DDD: Entity
+  //COURSE: https://app.pluralsight.com/library/courses/domain-driven-design-in-practice
   public class SnackMachine : Entity
   {
     public virtual Money MoneyInside { get; protected set; }
